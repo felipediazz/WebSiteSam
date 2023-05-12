@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<h1>Carga de imagen</h1>
+<form id="form-imagen" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="imagen">
+    <br>
+    <button type="submit">Cargar imagen</button>
+</form>
+<!-- Temporal-->
+<form method="post" action="{% url 'segmentar_imagen' %}">
+    {% csrf_token %}
+    <button type="submit">segmentar imagen</button>
+</form>
+<!-- Temporal-->
+
+<!-- Temporal Test 1 Mostrar imagen segmentada-->
+<!-- <form method="get" action="{% url 'ver_imagen_segmentada' %}">
+    <button type="submit">Mostrar imagen segmentada</button>
+</form> -->
+<!-- <img src="{% static 'websam\img-segmentada\imagen_segmentada.png' %}" alt="Imagen segmentada"> -->
+<!-- Temporal-->
+
+<!-- Temporal-->
+
+<!-- <div id="imagenes">
+    <img src="{% static 'images/imagenes/imagen_bgr.jpg' %}" alt="Imagen 1">
+    <img src="{% static 'images/img-segmentada/imagen_segmentada.png' %}" alt="Imagen 2">
+</div> -->
+
+<!-- Temporal-->
+
+<!-- Temporal-->
+<form method="post" action="{% url 'ver_imagen_segmentada' %}">
+    {% csrf_token %}
+    <!-- <button type="submit">Mostrar imagen segmentada</button> -->
+    <input type="submit" value="Mostrar imagenes">
+</form>
+
+{% if img_original %}
+<p>Imagen original</p>
+<img src="{{ img_original }}" alt="Imagen Original">
+{% endif %}
+
+{% if img_segmentada %}
+<p>Imagen segmentada</p>
+<img src="{{ img_segmentada }}" alt="Imagen Segmentada">
+{% endif %}
+
+<!-- <img src="{% static 'websam\img-segmentada\imagen_segmentada.png' %}" alt="Imagen segmentada"> -->
+<!-- Temporal-->
+
+
+
+<p id="mensaje"></p>
+
+<script>
+    const form = document.querySelector('#form-imagen'); //se captura para usarlo con el listener
+    const mensaje = document.querySelector('#mensaje');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(form); //objeto para ordenar los datos del formulario
+        fetch('', {   // se envia los datos en metodo POST 
+            method: 'POST',
+            body: formData // se envia los datos del formData en body de la solicitud POST
+        })
+        .then(function(response) { //control de errores
+            if (response.ok) {
+                mensaje.innerHTML = 'Imagen cargada correctamente';
+            } else {
+                mensaje.innerHTML = 'Error al cargar la imagen';
+            }
+        })
+        .catch(function(error) {
+            mensaje.innerHTML = 'Error de red';
+        });
+    });
+
+    //Temporal
+
+</script>
+
+{% endblock %}
