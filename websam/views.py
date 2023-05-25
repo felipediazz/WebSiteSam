@@ -61,8 +61,11 @@ def segmentar_imagen(request):
         with open(ruta_notebook, 'r') as f:
             nb = nbformat.read(f, as_version=4)
 
-        # Se crea un preprocesador de ejecución
-        ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
+        #Uso en AWS
+        ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+
+        # Se crea un preprocesador de ejecución Local
+       # ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
 
         # Se ejecuta el cuaderno
         try:
