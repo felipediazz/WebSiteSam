@@ -79,15 +79,61 @@ def segmentar_imagen(request):
     else:
         return render(request, 'carga_imagen.html')
     
-# def ver_imagen_segmentada(request):
     
-#     ruta_img_segmentada = os.path.join(settings.SEGM_ROOT, 'imagen_segmentada.png')
+def segmentar_binario(request):
 
-#     with open(ruta_img_segmentada, 'rb') as f:
-#         imagen_segmentada = f.read()
+    if request.method == 'POST':
+        # Carga el cuaderno en memoria
+        ruta_notebook = os.path.join(settings.NOTE_ROOT, 'sambinario.ipynb')
+        #with open('websam/notebooks/samtest.ipynb', 'r') as f:
+        with open(ruta_notebook, 'r') as f:
+            nb = nbformat.read(f, as_version=4)
 
-#     return HttpResponse(imagen_segmentada, content_type='image/png')
-    
+        #Uso en AWS
+        #ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+
+        #Se crea un preprocesador de ejecución Local
+        ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
+
+        # Se ejecuta el cuaderno
+        try:
+            ep.preprocess(nb, {'metadata': {'path': './'}})
+        except Exception as e:
+            # Maneja cualquier excepción que ocurra durante la ejecución
+            return HttpResponse('Error durante la ejecución del cuaderno: {}'.format(str(e)))
+        
+        # Devuelve una respuesta satisfactoria
+        return HttpResponse('Cuaderno binario ejecutado con éxito')
+    else:
+        return render(request, 'carga_imagen.html')
+
+def segmentar_json(request):  
+
+    if request.method == 'POST':
+        # Carga el cuaderno en memoria
+        ruta_notebook = os.path.join(settings.NOTE_ROOT, 'samjson.ipynb')
+        #with open('websam/notebooks/samtest.ipynb', 'r') as f:
+        with open(ruta_notebook, 'r') as f:
+            nb = nbformat.read(f, as_version=4)
+
+        #Uso en AWS
+        #ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+
+        #Se crea un preprocesador de ejecución Local
+        ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
+
+        # Se ejecuta el cuaderno
+        try:
+            ep.preprocess(nb, {'metadata': {'path': './'}})
+        except Exception as e:
+            # Maneja cualquier excepción que ocurra durante la ejecución
+            return HttpResponse('Error durante la ejecución del cuaderno: {}'.format(str(e)))
+        
+        # Devuelve una respuesta satisfactoria
+        return HttpResponse('Cuaderno JSON ejecutado con éxito')
+    else:
+        return render(request, 'carga_imagen.html')
+
 def ver_imagen_segmentada(request):
 
     if request.method == 'POST':
@@ -100,3 +146,32 @@ def ver_imagen_segmentada(request):
 
     #return HttpResponse(imagen_segmentada, content_type='image/png')
     return render(request, 'carga_imagen.html')
+
+from django.contrib.staticfiles.views import serve as serve_static
+from django.http import FileResponse
+
+def csv_view(request):
+
+    csv_path = os.path.join(settings.CSV_ROOT, 'metadata.csv')
+
+    # Abre el archivo CSV en modo binario
+    with open(csv_path, 'rb') as csv_file:
+        response = HttpResponse(csv_file, content_type='text/csv')
+        response['Content-Disposition'] = 'inline; filename="data.csv"'
+
+    # Devuelve una respuesta HTTP con el contenido del archivo CSV
+    return response
+
+import json
+
+def json_view(request):
+    # Ruta al archivo JSON
+    json_path = os.path.join(settings.JSON_ROOT, 'segmentacion_json.json')
+
+    # contenido del archivo JSON
+    with open(json_path, 'r') as json_file:
+        json_data = json.load(json_file)
+        
+
+    # # Pasa los datos JSON a la plantilla para mostrarlos
+    return render(request, 'vista_json.html', {'json_data': json_data})

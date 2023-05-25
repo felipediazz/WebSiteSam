@@ -10,30 +10,36 @@
     <br>
     <button type="submit">Cargar imagen</button>
 </form>
-<!-- Temporal-->
+<!-- Segmentación Simple-->
 <form method="post" action="{% url 'segmentar_imagen' %}">
     {% csrf_token %}
-    <button type="submit">segmentar imagen</button>
+    <button type="submit" style="display: none;">segmentar output simple</button>
 </form>
-<!-- Temporal-->
+<!--  Segmentación Simple-->
 
-<!-- Temporal Test 1 Mostrar imagen segmentada-->
-<!-- <form method="get" action="{% url 'ver_imagen_segmentada' %}">
-    <button type="submit">Mostrar imagen segmentada</button>
-</form> -->
-<!-- <img src="{% static 'websam\img-segmentada\imagen_segmentada.png' %}" alt="Imagen segmentada"> -->
-<!-- Temporal-->
+<!-- Segmentación Binaria-->
+<form method="post" action="{% url 'segmentar_binario' %}">
+    {% csrf_token %}
+    <button type="submit">segmentar con output binario</button>
+</form>
+<!--  Segmentación Binaria-->
 
-<!-- Temporal-->
+<!-- Segmentación JSON-->
+<form method="post" action="{% url 'segmentar_json' %}">
+    {% csrf_token %}
+    <button type="submit">segmentar con output JSON</button>
+</form>
+<!--  Segmentación JSON-->
 
-<!-- <div id="imagenes">
-    <img src="{% static 'images/imagenes/imagen_bgr.jpg' %}" alt="Imagen 1">
-    <img src="{% static 'images/img-segmentada/imagen_segmentada.png' %}" alt="Imagen 2">
-</div> -->
+<!--  Mostrar CSV-->
+<a href="{% url 'csv-view' %}" target="_blank" class="csv-button">Descargar Output binario CSV</a>
+<!--  Mostrar CSV-->
 
-<!-- Temporal-->
+<!--  Mostrar JSON-->
+<a href="{% url 'vista_json' %}" target="_blank" class="csv-button">Mostrar output JSON</a>
+<!--  Mostrar JSON-->
 
-<!-- Temporal-->
+<!-- Mostrar Imagenes-->
 <form method="post" action="{% url 'ver_imagen_segmentada' %}">
     {% csrf_token %}
     <!-- <button type="submit">Mostrar imagen segmentada</button> -->
@@ -49,11 +55,7 @@
 <p>Imagen segmentada</p>
 <img src="{{ img_segmentada }}" alt="Imagen Segmentada">
 {% endif %}
-
-<!-- <img src="{% static 'websam\img-segmentada\imagen_segmentada.png' %}" alt="Imagen segmentada"> -->
-<!-- Temporal-->
-
-
+<!-- Mostrar Imagenes-->
 
 <p id="mensaje"></p>
 

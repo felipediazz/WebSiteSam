@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<a href="{% url 'carga_imagen' %} " class="csv-button">Inicio</a>
+
+<pre>{{ json_data|json_script:"json_data_script" }}</pre>
+
+
+    <script>
+        var jsonData = JSON.parse(document.getElementById("json_data_script").textContent);
+        document.write(JSON.stringify(jsonData, null, 4));
+
+    </script>
+
+{% endblock %}

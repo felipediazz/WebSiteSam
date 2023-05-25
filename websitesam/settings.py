@@ -27,10 +27,10 @@ SECRET_KEY = 'django-insecure-5vjs)*3=3rir**no2c1m%4)@)2l54&)b463+@b9$av#^px=93p
 DEBUG = True
 
 #uso en AWS 
-ALLOWED_HOSTS = ["3.142.240.59"]
+#ALLOWED_HOSTS = ["3.142.240.59"]
 
 #uso local
-#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -130,13 +130,18 @@ STATIC_URL = 'static/'
 STATIC_ROOT = '/static/'
 
 IMG_ROOT = os.path.join(BASE_DIR, 'static','images' ,'imagenes')
+CSV_ROOT = os.path.join(BASE_DIR, 'static','csv' ,'sam_csv', 'img_metadata')
+JSON_ROOT = os.path.join(BASE_DIR, 'static','js' ,'sam_js')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'static','imagenes'),
     os.path.join(BASE_DIR, 'static','img-segmentada'),
     os.path.join(BASE_DIR, 'websam', 'imagenes'), 
-    os.path.join(BASE_DIR, 'websam', 'img-segmentada')
+    os.path.join(BASE_DIR, 'websam', 'img-segmentada'),
+    os.path.join(BASE_DIR, 'static', 'csv' ,'sam_csv', 'img_metadata'),
+    os.path.join(BASE_DIR, 'static', 'csv' ),
+    os.path.join(BASE_DIR, 'static', 'csv' ,'sam_csv')
 ]
 
 
