@@ -65,7 +65,7 @@ def segmentar_imagen(request):
         ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
 
         # Se crea un preprocesador de ejecución Local
-       # ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
+        #ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
 
         # Se ejecuta el cuaderno
         try:
@@ -79,7 +79,10 @@ def segmentar_imagen(request):
     else:
         return render(request, 'carga_imagen.html')
     
-    
+from django.shortcuts import redirect    
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 def segmentar_binario(request):
 
     if request.method == 'POST':
@@ -90,20 +93,22 @@ def segmentar_binario(request):
             nb = nbformat.read(f, as_version=4)
 
         #Uso en AWS
-        ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+        #ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
 
         #Se crea un preprocesador de ejecución Local
-        #ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
+        ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
 
         # Se ejecuta el cuaderno
         try:
             ep.preprocess(nb, {'metadata': {'path': './'}})
+            mensaje_exito = 'Cuaderno binario ejecutado con éxito'
+            return HttpResponseRedirect(reverse('output_csv') + '?mensaje=' + mensaje_exito)         
         except Exception as e:
             # Maneja cualquier excepción que ocurra durante la ejecución
             return HttpResponse('Error durante la ejecución del cuaderno: {}'.format(str(e)))
         
         # Devuelve una respuesta satisfactoria
-        return HttpResponse('Cuaderno binario ejecutado con éxito')
+        # return HttpResponse('Cuaderno binario ejecutado con éxito')
     else:
         return render(request, 'carga_imagen.html')
 
@@ -117,20 +122,22 @@ def segmentar_json(request):
             nb = nbformat.read(f, as_version=4)
 
         #Uso en AWS
-        ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+        #ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
 
         #Se crea un preprocesador de ejecución Local
-        #ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
+        ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
 
         # Se ejecuta el cuaderno
         try:
             ep.preprocess(nb, {'metadata': {'path': './'}})
+            mensaje_exito = 'Cuaderno JSON ejecutado con éxito'
+            return HttpResponseRedirect(reverse('output_json') + '?mensaje=' + mensaje_exito)                
         except Exception as e:
             # Maneja cualquier excepción que ocurra durante la ejecución
             return HttpResponse('Error durante la ejecución del cuaderno: {}'.format(str(e)))
         
         # Devuelve una respuesta satisfactoria
-        return HttpResponse('Cuaderno JSON ejecutado con éxito')
+        #return HttpResponse('Cuaderno JSON ejecutado con éxito')
     else:
         return render(request, 'carga_imagen.html')
 
@@ -175,3 +182,12 @@ def json_view(request):
 
     # # Pasa los datos JSON a la plantilla para mostrarlos
     return render(request, 'vista_json.html', {'json_data': json_data})
+
+
+def output_csv(request):
+    mensaje = request.GET.get('mensaje', '')
+    return render(request, 'output_csv.html', {'mensaje': mensaje})
+
+def output_json(request):
+    mensaje = request.GET.get('mensaje', '')
+    return render(request, 'output_json.html', {'mensaje': mensaje})

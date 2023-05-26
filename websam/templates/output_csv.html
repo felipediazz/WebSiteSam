@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<a href="{% url 'carga_imagen' %} " class="csv-button">Inicio</a>
+
+
+<h2>{{ mensaje }}</h2>
+
+<!--  Mostrar CSV-->
+<a href="{% url 'csv-view' %}" target="_blank" class="csv-button">Descargar Output binario CSV</a>
+<!--  Mostrar CSV-->
+
+{% endblock %}

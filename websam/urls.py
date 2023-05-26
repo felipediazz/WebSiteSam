@@ -11,6 +11,8 @@ urlpatterns = [
     path('ver_imagen_segmentada/', views.ver_imagen_segmentada, name='ver_imagen_segmentada'),
     path('csv-view/', views.csv_view, name='csv-view'),
     path('vista_json/', views.json_view, name='vista_json'),
+    path('output_csv/', views.output_csv, name='output_csv'),
+    path('output_json/', views.output_json, name='output_json'),
 ]
 
 # if settings.DEBUG:

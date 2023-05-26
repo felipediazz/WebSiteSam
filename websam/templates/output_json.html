@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<a href="{% url 'carga_imagen' %} " class="csv-button">Inicio</a>
+
+
+<h2>{{ mensaje }}</h2>
+
+<!--  Mostrar JSON-->
+<a href="{% url 'vista_json' %}" target="_blank" class="csv-button">Mostrar output coco_rle JSON</a>
+<!--  Mostrar JSON-->
+
+{% endblock %}
