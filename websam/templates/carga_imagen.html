@@ -20,14 +20,14 @@
 <!-- Segmentación Binaria-->
 <form method="post" action="{% url 'segmentar_binario' %}">
     {% csrf_token %}
-    <button type="submit">segmentar con output binario</button>
+    <button type="submit">segmentar con output binario CSV</button>
 </form>
 <!--  Segmentación Binaria-->
 
 <!-- Segmentación JSON-->
 <form method="post" action="{% url 'segmentar_json' %}">
     {% csrf_token %}
-    <button type="submit">segmentar con output JSON</button>
+    <button type="submit">segmentar con output coco_rle JSON</button>
 </form>
 <!--  Segmentación JSON-->
 
@@ -36,7 +36,7 @@
 <!--  Mostrar CSV-->
 
 <!--  Mostrar JSON-->
-<a href="{% url 'vista_json' %}" target="_blank" class="csv-button">Mostrar output JSON</a>
+<a href="{% url 'vista_json' %}" target="_blank" class="csv-button">Mostrar output coco_rle JSON</a>
 <!--  Mostrar JSON-->
 
 <!-- Mostrar Imagenes-->

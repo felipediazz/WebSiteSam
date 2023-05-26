@@ -90,10 +90,10 @@ def segmentar_binario(request):
             nb = nbformat.read(f, as_version=4)
 
         #Uso en AWS
-        #ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+        ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
 
         #Se crea un preprocesador de ejecución Local
-        ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
+        #ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
 
         # Se ejecuta el cuaderno
         try:
@@ -117,10 +117,10 @@ def segmentar_json(request):
             nb = nbformat.read(f, as_version=4)
 
         #Uso en AWS
-        #ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+        ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
 
         #Se crea un preprocesador de ejecución Local
-        ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
+        #ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
 
         # Se ejecuta el cuaderno
         try:
@@ -148,7 +148,7 @@ def ver_imagen_segmentada(request):
     return render(request, 'carga_imagen.html')
 
 from django.contrib.staticfiles.views import serve as serve_static
-from django.http import FileResponse
+#from django.http import FileResponse
 
 def csv_view(request):
 

@@ -27,10 +27,10 @@ SECRET_KEY = 'django-insecure-5vjs)*3=3rir**no2c1m%4)@)2l54&)b463+@b9$av#^px=93p
 DEBUG = True
 
 #uso en AWS 
-#ALLOWED_HOSTS = ["3.142.240.59"]
+ALLOWED_HOSTS = ["3.142.240.59"]
 
 #uso local
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
 # Application definition
 
