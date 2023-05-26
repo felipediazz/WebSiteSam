@@ -20,16 +20,28 @@
 <!-- Segmentación Binaria-->
 <form method="post" action="{% url 'segmentar_binario' %}">
     {% csrf_token %}
-    <button type="submit">segmentar con output binario CSV</button>
+    <button onclick="showWaitMessage()" type="submit">segmentar con output binario CSV</button>
 </form>
 <!--  Segmentación Binaria-->
+
+<!-- Mensaje de espera -->
+<div id="mensaje-espera" style="display: none;">
+    <p>Por favor, espera mientras se procesa la imagen (CSV)<span class="loading-dots"></span></p>
+</div>
+<!-- Mensaje de espera -->  
 
 <!-- Segmentación JSON-->
 <form method="post" action="{% url 'segmentar_json' %}">
     {% csrf_token %}
-    <button type="submit">segmentar con output coco_rle JSON</button>
+    <button onclick="showWaitMessage2()" type="submit">segmentar con output coco_rle JSON</button>
 </form>
 <!--  Segmentación JSON-->
+
+<!-- Mensaje de espera -->
+<div id="mensaje-espera2" style="display: none;">
+    <p>Por favor, espera mientras se procesa la imagen (JSON)<span class="loading-dots"></span></p>
+</div>
+<!-- Mensaje de espera -->  
 
 <!--  Mostrar CSV-->
 <a href="{% url 'csv-view' %}" target="_blank" class="csv-button">Descargar Output binario CSV</a>
@@ -39,12 +51,16 @@
 <a href="{% url 'vista_json' %}" target="_blank" class="csv-button">Mostrar output coco_rle JSON</a>
 <!--  Mostrar JSON-->
 
+<a href="{% url 'carga_imagen' %} " class="csv-button">Ocultar imagenes</a>
+
 <!-- Mostrar Imagenes-->
 <form method="post" action="{% url 'ver_imagen_segmentada' %}">
     {% csrf_token %}
     <!-- <button type="submit">Mostrar imagen segmentada</button> -->
     <input type="submit" value="Mostrar imagenes">
 </form>
+
+
 
 {% if img_original %}
 <p>Imagen original</p>
@@ -80,6 +96,25 @@
             mensaje.innerHTML = 'Error de red';
         });
     });
+
+    function showWaitMessage() {
+            document.getElementById('mensaje-espera').style.display = 'block';
+            animateLoadingDots();
+        }
+
+    function showWaitMessage2() {
+        document.getElementById('mensaje-espera2').style.display = 'block';
+        animateLoadingDots();
+    }
+    
+    function animateLoadingDots() {
+        var dots = document.getElementsByClassName('loading-dots')[0];
+        var counter = 1;
+        setInterval(function() {
+            dots.innerHTML = '.'.repeat(counter);
+            counter = (counter % 3) + 1;
+        }, 500);
+    }
 
     //Temporal
 
