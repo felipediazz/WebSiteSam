@@ -93,10 +93,10 @@ def segmentar_binario(request):
             nb = nbformat.read(f, as_version=4)
 
         #Uso en AWS
-        #ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+        ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
 
         #Se crea un preprocesador de ejecución Local
-        ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
+        #ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
 
         # Se ejecuta el cuaderno
         try:
@@ -122,10 +122,10 @@ def segmentar_json(request):
             nb = nbformat.read(f, as_version=4)
 
         #Uso en AWS
-        #ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+        ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
 
         #Se crea un preprocesador de ejecución Local
-        ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
+        #ep = ExecutePreprocessor(timeout=600, kernel_name='PythonDjango')
 
         # Se ejecuta el cuaderno
         try:

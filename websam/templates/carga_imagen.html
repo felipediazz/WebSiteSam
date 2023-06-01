@@ -3,7 +3,7 @@
 {% block content %}
 
 {% load static %}
-<h1>Carga de imagen</h1>
+<h1>Carga de imagen:</h1>
 <form id="form-imagen" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="file" name="imagen">
@@ -16,6 +16,8 @@
     <button type="submit" style="display: none;">segmentar output simple</button>
 </form>
 <!--  Segmentación Simple-->
+
+<p>Ejecutar solo uno a la vez:</p>
 
 <!-- Segmentación Binaria-->
 <form method="post" action="{% url 'segmentar_binario' %}">
@@ -43,6 +45,10 @@
 </div>
 <!-- Mensaje de espera -->  
 
+<p></p>
+<p>Outputs:</p>
+<p></p>
+
 <!--  Mostrar CSV-->
 <a href="{% url 'csv-view' %}" target="_blank" class="csv-button">Descargar Output binario CSV</a>
 <!--  Mostrar CSV-->
@@ -51,7 +57,12 @@
 <a href="{% url 'vista_json' %}" target="_blank" class="csv-button">Mostrar output coco_rle JSON</a>
 <!--  Mostrar JSON-->
 
+<p>Imagenes:</p>
+<p></p>
+
 <a href="{% url 'carga_imagen' %} " class="csv-button">Ocultar imagenes</a>
+
+
 
 <!-- Mostrar Imagenes-->
 <form method="post" action="{% url 'ver_imagen_segmentada' %}">
